@@ -128,14 +128,11 @@ const Register = () => {
               </label>
             </div>
 
-            <div className="text-sm">
-              <a
-                href="#"
-                className="font-medium text-yellow-600 hover:text-yellow-500"
-              >
-                Forgot your password?
-              </a>
-            </div>
+            {/* <div className="text-sm">
+              <span className="font-medium text-yellow-600 hover:text-yellow-500">
+                <Link to="#">Forgot your password?</Link>
+              </span>
+            </div> */}
           </div>
 
           <div>
