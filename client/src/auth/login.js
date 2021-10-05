@@ -1,10 +1,13 @@
 import React, { useState } from "react";
-import axios from "axios";
+// import axios from "axios";
+import { connect } from "react-redux";
+import { login } from "../actions/auth";
+import PropTypes from "prop-types";
 import { LockClosedIcon } from "@heroicons/react/solid";
 import { BadgeCheckIcon } from "@heroicons/react/outline";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
-const Login = () => {
+const Login = (login, isAuthenticated) => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -15,28 +18,37 @@ const Login = () => {
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
-  const onSubmit = async (e) => {
+  const onSubmit = (e) => {
     e.preventDefault();
-
-    const newUser = {
-      email,
-      password,
-    };
-
-    try {
-      const config = {
-        headers: {
-          "Content-type": "application/json",
-        },
-      };
-      const body = JSON.stringify(newUser);
-
-      const res = await axios.post("/api/auth", body, config);
-      console.log(res.data);
-    } catch (err) {
-      console.error(err.response.data);
-    }
+    login(email, password);
   };
+
+  if (isAuthenticated) {
+    return <Redirect to="/profile" />;
+  }
+
+  // const onSubmit = async (e) => {
+  //   e.preventDefault();
+
+  //   const newUser = {
+  //     email,
+  //     password,
+  //   };
+
+  //   try {
+  //     const config = {
+  //       headers: {
+  //         "Content-type": "application/json",
+  //       },
+  //     };
+  //     const body = JSON.stringify(newUser);
+
+  //     const res = await axios.post("/api/auth", body, config);
+  //     console.log(res.data);
+  //   } catch (err) {
+  //     console.error(err.response.data);
+  //   }
+  // };
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
@@ -52,11 +64,7 @@ const Login = () => {
             </button>
           </p>
         </div>
-        <form
-          className="mt-8 space-y-6"
-          onSubmit={(e) => onSubmit(e)}
-          method="POST"
-        >
+        <form className="mt-8 space-y-6" onSubmit={onSubmit} method="POST">
           <input type="hidden" name="remember" defaultValue="true" />
           <div className="rounded-md shadow-sm -space-y-px">
             <div>
@@ -69,7 +77,7 @@ const Login = () => {
                 type="email"
                 autoComplete="email"
                 value={email}
-                onChange={(e) => onChange(e)}
+                onChange={onChange}
                 required
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-yellow-500 focus:border-yellow-500 focus:z-10 sm:text-sm"
                 placeholder="Email address"
@@ -85,7 +93,7 @@ const Login = () => {
                 type="password"
                 autoComplete="current-password"
                 value={password}
-                onChange={(e) => onChange(e)}
+                onChange={onChange}
                 required
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-yellow-500 focus:border-yellow-500 focus:z-10 sm:text-sm"
                 placeholder="Password"
@@ -137,4 +145,13 @@ const Login = () => {
   );
 };
 
-export default Login;
+Login.propTypes = {
+  login: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool,
+};
+
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
+
+export default connect(mapStateToProps, { login })(Login);
