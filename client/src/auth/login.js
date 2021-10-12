@@ -7,7 +7,7 @@ import { LockClosedIcon } from "@heroicons/react/solid";
 import { BadgeCheckIcon } from "@heroicons/react/outline";
 import { Link, Redirect } from "react-router-dom";
 
-const Login = (login, isAuthenticated) => {
+const Login = ({ login, isAuthenticated }) => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
