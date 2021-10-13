@@ -15,6 +15,7 @@ import store from "./store";
 import { LOGOUT } from "./actions/types";
 import { loadUser } from "./actions/auth";
 import setAuthToken from "./utils/setAuthToken";
+import ProfileEdit from "./components/profile/ProfileEdit";
 
 const App = () => {
   useEffect(() => {
@@ -39,6 +40,12 @@ const App = () => {
             <Route exact path="/login" component={Login} />
             <Route exact path="/register" component={Register} />
             <PrivateRoute path="/profile" component={Profile} />
+            <PrivateRoute
+              exact
+              path="/create-profile"
+              component={ProfileEdit}
+            />
+            <PrivateRoute exact path="/profile-edit" component={ProfileEdit} />
             <Route path="/players" component={Players} />
           </Switch>
         </div>
