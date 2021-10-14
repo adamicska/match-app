@@ -7,7 +7,7 @@ import Navigation from "./components/Navigation/Navigation";
 import Home from "./pages/index";
 import Login from "./auth/login";
 import Register from "./auth/register";
-import Profile from "./pages/profile";
+import Profile from "./components/profile/profile";
 import Players from "./pages/players";
 // Redux
 import { Provider } from "react-redux";
@@ -46,7 +46,7 @@ const App = () => {
               component={ProfileEdit}
             />
             <PrivateRoute exact path="/profile-edit" component={ProfileEdit} />
-            <Route path="/players" component={Players} />
+            <PrivateRoute path="/players" component={Players} />
           </Switch>
         </div>
       </Router>

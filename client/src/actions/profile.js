@@ -10,7 +10,7 @@ import {
   ACCOUNT_DELETED,
 } from "./types";
 
-// Get current users profile
+// Get current user's profile
 export const getCurrentProfile = () => async (dispatch) => {
   try {
     const res = await api.get("/profile/me");
