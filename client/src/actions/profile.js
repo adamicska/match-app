@@ -76,11 +76,14 @@ export const createProfile =
       });
 
       dispatch(
+        {
+          type: UPDATE_PROFILE,
+        },
         setAlert(edit ? "Profile Updated" : "Profile Created", "success")
       );
 
       if (!edit) {
-        history.push("/dashboard");
+        history.push("/profile");
       }
     } catch (err) {
       const errors = err.response.data.errors;

@@ -8,7 +8,6 @@ import Home from "./pages/index";
 import Login from "./auth/login";
 import Register from "./auth/register";
 import Profile from "./components/profile/profile";
-import Players from "./pages/players";
 // Redux
 import { Provider } from "react-redux";
 import store from "./store";
@@ -16,6 +15,7 @@ import { LOGOUT } from "./actions/types";
 import { loadUser } from "./actions/auth";
 import setAuthToken from "./utils/setAuthToken";
 import ProfileEdit from "./components/profile/ProfileEdit";
+import Profiles from "./components/profile/Profiles";
 
 const App = () => {
   useEffect(() => {
@@ -36,17 +36,12 @@ const App = () => {
         <div className="App">
           <Navigation />
           <Switch>
-            <Route exact path="/" exact component={Home} />
+            <Route exact path="/" component={Home} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/register" component={Register} />
             <PrivateRoute path="/profile" component={Profile} />
-            <PrivateRoute
-              exact
-              path="/create-profile"
-              component={ProfileEdit}
-            />
             <PrivateRoute exact path="/profile-edit" component={ProfileEdit} />
-            <PrivateRoute path="/players" component={Players} />
+            <PrivateRoute path="/players" component={Profiles} />
           </Switch>
         </div>
       </Router>

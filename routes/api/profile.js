@@ -16,14 +16,13 @@ router.get("/me", auth, async (req, res) => {
     );
 
     if (!profile) {
-      res.status(400).json({ msg: "Profile not found" });
+      return res.status(400).json({ msg: "Profile not found" });
     }
 
     res.json(profile);
   } catch (err) {
-    console.error(err.message);
-    // res.status(500);
-    // .send("Server error");
+    console.error(err.messe);
+    res.status(500).send("Server error");
   }
 });
 
@@ -34,14 +33,13 @@ router.post(
   "/",
   [
     auth,
-    check("status", "Status is required").not().isEmpty(),
     check("level", "Level is required").not().isEmpty(),
     check("location", "Location is required").not().isEmpty(),
   ],
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      res.status(400).json({ errors: errors.array() });
+      return res.status(400).json({ errors: errors.array() });
     }
 
     const { location, level, status, clubs, ...rest } = req.body;
