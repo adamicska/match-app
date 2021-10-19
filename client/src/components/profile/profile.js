@@ -23,28 +23,36 @@ const Profile = ({
     <div>
       <Fragment>
         <header className="bg-white shadow">
-          <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+          <div className="max-w-7xl mx-auto py-6 px-4 xs:px-6 lg:px-8">
             <h1 className="text-3xl font-bold text-gray-900">Profile</h1>
           </div>
         </header>
         <main>
-          <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+          <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
             <div className="lg:flex lg:items-center lg:justify-between">
               <div className="flex-1 min-w-0">
-                <h2 className="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:truncate">
-                  {user.name}
-                </h2>
+                <div className="md:flex">
+                  <img
+                    className="h-10 w-10 rounded-full"
+                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                    alt=""
+                  />
+                  <h2 className="md:ml-3 text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:truncate">
+                    {user.name}
+                  </h2>
+                </div>
+
                 {profile !== null ? (
                   <Fragment>
                     <div className="mt-1 flex flex-col sm:flex-row sm:flex-wrap sm:mt-0 sm:space-x-6">
-                      <div className="mt-2 flex items-center text-sm text-gray-500">
+                      <div className="mt-3 flex items-center text-sm text-gray-500">
                         <BriefcaseIcon
                           className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400"
                           aria-hidden="true"
                         />
                         {profile.level}
                       </div>
-                      <div className="mt-2 flex items-center text-sm text-gray-500">
+                      <div className="mt-3 flex items-center text-sm text-gray-500">
                         <LocationMarkerIcon
                           className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400"
                           aria-hidden="true"

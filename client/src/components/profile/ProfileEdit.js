@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useEffect } from "react";
-// import { Link, useRouteMatch } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { createProfile, getCurrentProfile } from "../../actions/profile";
@@ -12,7 +12,7 @@ const initialState = {
   clubs: "",
 };
 
-const ProfileForm = ({
+const ProfileEdit = ({
   profile: { profile, loading },
   createProfile,
   getCurrentProfile,
@@ -106,6 +106,7 @@ const ProfileForm = ({
                       onChange={onChange}
                       className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-yellow-500 focus:border-yellow-500 sm:text-sm"
                     >
+                      <option>Choose</option>
                       <option>3</option>
                       <option>3.5</option>
                       <option>4</option>
@@ -172,7 +173,7 @@ const ProfileForm = ({
   );
 };
 
-ProfileForm.propTypes = {
+ProfileEdit.propTypes = {
   createProfile: PropTypes.func.isRequired,
   getCurrentProfile: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired,
@@ -183,5 +184,5 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, { createProfile, getCurrentProfile })(
-  ProfileForm
+  ProfileEdit
 );

@@ -16,6 +16,11 @@ import { loadUser } from "./actions/auth";
 import setAuthToken from "./utils/setAuthToken";
 import ProfileEdit from "./components/profile/ProfileEdit";
 import Profiles from "./components/profile/Profiles";
+import PostForm from "./components/post/PostForm";
+import PostItem from "./components/post/PostItem";
+import Posts from "./components/post/Posts";
+import Friends from "./components/profile/Friends";
+import Footer from "./components/Navigation/Footer";
 
 const App = () => {
   useEffect(() => {
@@ -42,7 +47,12 @@ const App = () => {
             <PrivateRoute path="/profile" component={Profile} />
             <PrivateRoute exact path="/profile-edit" component={ProfileEdit} />
             <PrivateRoute path="/players" component={Profiles} />
+            <PrivateRoute path="/friends" component={Friends} />
+            <PrivateRoute path="/post-form" component={PostForm} />
+            <PrivateRoute path="/feed" component={Posts} />
+            <PrivateRoute path="/post" component={PostItem} />
           </Switch>
+          <Footer />
         </div>
       </Router>
     </Provider>
