@@ -45,15 +45,17 @@ const Footer = ({ auth: { isAuthenticated, loading }, logout }) => {
   );
 
   return (
-    <Fragment>
-      <div className="fixed bottom-0 left-0 block w-full lg:hidden bg-white ">
-        <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 border-t border-gray-200">
-          <div className="grid grid-cols-3 divide-x divide-gray-200 h-12">
-            {!isAuthenticated ? null : footerlinks}
+    <>
+      {isAuthenticated ? (
+        <div className="fixed bottom-0 left-0 block w-full lg:hidden bg-white">
+          <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 border-t border-gray-200">
+            <div className="grid grid-cols-3 divide-x divide-gray-200 h-12">
+              {!isAuthenticated ? null : footerlinks}
+            </div>
           </div>
         </div>
-      </div>
-    </Fragment>
+      ) : null}
+    </>
   );
 };
 
