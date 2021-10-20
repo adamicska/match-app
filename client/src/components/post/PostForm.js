@@ -3,8 +3,24 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { addPost } from "../../actions/post";
 
+const initialState = {
+  title: "",
+  image: "",
+  text: "",
+};
+
 const PostForm = ({ addPost }) => {
-  const [text, setText] = useState("");
+  const [formData, setFormData] = useState(initialState);
+
+  const { title, image, text } = formData;
+
+  const onChange = (e) =>
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    addPost(formData);
+  };
 
   return (
     <Fragment>
@@ -18,13 +34,7 @@ const PostForm = ({ addPost }) => {
             </div>
           </div>
           <div className="mt-5 md:mt-0 md:col-span-2">
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                addPost({ text });
-                setText("");
-              }}
-            >
+            <form onSubmit={onSubmit}>
               <div className="shadow sm:rounded-md sm:overflow-hidden">
                 <div className="px-4 py-5 bg-white space-y-6 sm:p-6">
                   <div className="col-span-6">
@@ -37,8 +47,9 @@ const PostForm = ({ addPost }) => {
                     <input
                       type="text"
                       name="title"
-                      // value={title}
-                      // onChange
+                      required
+                      value={title}
+                      onChange={onChange}
                       className="mt-1 focus:ring-yellow-500 focus:border-yellow-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                     />
                   </div>
@@ -73,12 +84,14 @@ const PostForm = ({ addPost }) => {
                               name="file-upload"
                               type="file"
                               className="sr-only"
+                              value={image}
+                              onChange={onChange}
                             />
                           </label>
                           <p className="pl-1">or drag and drop</p>
                         </div>
                         <p className="text-xs text-gray-500">
-                          PNG, JPG, GIF up to 10MB
+                          PNG, JPG, GIF up to 4MB
                         </p>
                       </div>
                     </div>
@@ -95,10 +108,10 @@ const PostForm = ({ addPost }) => {
                     name="text"
                     placeholder="Create a post"
                     value={text}
-                    onChange={(e) => setText(e.target.value)}
+                    onChange={onChange}
                     required
                     className="shadow-sm focus:ring-yellow-500 focus:border-yellow-500 block w-full sm:text-sm border border-gray-300 rounded-md"
-                    placeholder="Brief description for your profile."
+                    placeholder="Post content..."
                   />
                   {/* </div> */}
                 </div>

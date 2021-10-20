@@ -1,5 +1,4 @@
 import { Fragment } from "react";
-import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
@@ -9,10 +8,6 @@ import {
   ChatAlt2Icon,
   NewspaperIcon,
 } from "@heroicons/react/outline";
-
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
 
 const Footer = ({ auth: { isAuthenticated, loading }, logout }) => {
   const footerlinks = (
