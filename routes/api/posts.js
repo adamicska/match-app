@@ -3,6 +3,7 @@ const router = express.Router();
 const { check, validationResult } = require("express-validator");
 const auth = require("../../middleware/auth");
 const checkObjectId = require("../../middleware/checkObjectId");
+const mongoose = require("mongoose");
 
 const User = require("../../models/User");
 const Post = require("../../models/Post");
@@ -104,12 +105,17 @@ router.put("/like/:id", auth, checkObjectId("id"), async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
 
+    const user = req.user.id;
+
+    console.log(post.likes);
+
     // Check if the post has already been liked
-    if (post.likes.some((like) => like.user.toString() === req.user.id)) {
+    // Convert this to unlike | show liked in UI
+    if (post.likes.some((like) => like.user.toString() === user)) {
       return res.status(400).json({ msg: "Post already liked" });
     }
 
-    post.likes.unshift({ user: req.user.id });
+    post.likes.unshift({ user: user });
 
     await post.save();
 

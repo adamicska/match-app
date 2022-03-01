@@ -106,7 +106,6 @@ const PostForm = ({ addPost }) => {
                   <textarea
                     id="text"
                     name="text"
-                    placeholder="Create a post"
                     value={text}
                     onChange={onChange}
                     required

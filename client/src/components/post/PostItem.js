@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
@@ -15,7 +15,7 @@ const PostItem = ({
   post: { _id, text, name, title, avatar, user, likes, comments, date },
   showActions,
 }) => (
-  <Fragment className="bg-white shadow overflow-hidden sm:rounded-lg mb-4">
+  <div className="bg-white shadow overflow-hidden sm:rounded-lg mb-4">
     <div className="px-4 py-5 sm:px-6">
       {!auth.loading && user === auth.user._id && (
         <button
@@ -27,14 +27,13 @@ const PostItem = ({
         </button>
       )}
       <h3 className="text-lg leading-6 font-medium text-gray-900">{title}</h3>
-      <p className="text-xs text-gray-800">{formatDate(date)}</p>
+      <p className="text-xs text-gray-800 my-2">{formatDate(date)}</p>
       <Link to={`/profile/${user}`}>
         <img
           className="inline-block h-8 w-8 rounded-full"
           src={avatar}
           alt={name}
         />
-        <p className="mt-1 max-w-2xl text-sm text-gray-500">{name}</p>
       </Link>
     </div>
     <div className="aspect-w-4 aspect-h-2 bg-gray-100 overflow-hidden max-h-screen">
@@ -55,6 +54,7 @@ const PostItem = ({
         <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
           <dt>
             <button onClick={() => addLike(_id)} type="button">
+              {/* Add color toggle like => unlike */}
               <ThumbUpIcon className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400 mb-2" />
             </button>
           </dt>
@@ -106,7 +106,7 @@ const PostItem = ({
         </div>
       </dl>
     </div>
-  </Fragment>
+  </div>
 );
 
 PostItem.defaultProps = {

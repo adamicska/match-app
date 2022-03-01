@@ -14,8 +14,11 @@ const CommentItem = ({
   <div className="bg-white shadow overflow-hidden sm:rounded-lg mb-4">
     <div className="columns-2 px-4 pt-3">
       <Link to={`/profile/${user}`}>
-        <img className="round-img" src={avatar} alt={name} />
-        <p className="my-2, text-xs">{user}</p>
+        <img
+          className="inline-block h-6 w-6 rounded-full mb-1"
+          src={avatar}
+          alt={name}
+        />
       </Link>
       <p className="text-xs">{formatDate(date)}</p>
     </div>
