@@ -28,9 +28,11 @@ const ProfileSchema = new mongoose.Schema({
   },
   follows: {
     type: [mongoose.Schema.Types.ObjectId],
+    ref: "user",
   },
   followed: {
     type: [mongoose.Schema.Types.ObjectId],
+    ref: "user",
   },
   // Add Posts
   // Add Comments

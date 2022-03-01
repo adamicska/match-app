@@ -8,6 +8,7 @@ import {
   UPDATE_PROFILE,
   CLEAR_PROFILE,
   ACCOUNT_DELETED,
+  PROFILE_FOLLOW,
 } from "./types";
 
 // Get current user's profile
@@ -115,5 +116,22 @@ export const deleteAccount = () => async (dispatch) => {
         payload: { msg: err.response.statusText, status: err.response.status },
       });
     }
+  }
+};
+
+// Add Follow
+export const addFollow = (userId) => async (dispatch) => {
+  try {
+    const res = await api.put(`/profile/follow/${userId}`);
+
+    dispatch({
+      type: PROFILE_FOLLOW,
+      payload: { userId, follows: res.data },
+    });
+  } catch (err) {
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
   }
 };

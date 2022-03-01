@@ -129,4 +129,30 @@ router.delete("/", auth, async (req, res) => {
   }
 });
 
+// @route    PUT api/profile/follow/:id
+// @desc     Follow a profile
+// @access   Private
+router.put("/follow/:id", async (req, res) => {
+  try {
+    const profile = await Profile.findOne({ user: req.params.id });
+    const user = await Profile.findOne({ user: req.user.id });
+
+    // Check if the profile has already been followed
+    if (
+      user.follows.some((follow) => follow.user.toString() === req.params.id)
+    ) {
+      return res.status(400).json({ msg: "User already followed" });
+    }
+
+    user.follows.unshift({ user: req.params.id });
+
+    await user.save();
+
+    return res.json(user.follows);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
+
 module.exports = router;

@@ -5,9 +5,9 @@ import PrivateRoute from "./routing/PrivateRoute";
 
 import Navigation from "./components/Navigation/Navigation";
 import Home from "./pages/index";
-import Login from "./auth/login";
-import Register from "./auth/register";
-import Profile from "./components/profile/profile";
+import Login from "./auth/Login";
+import Register from "./auth/Register";
+import Profile from "./components/profile/Profile";
 // Redux
 import { Provider } from "react-redux";
 import store from "./store";
@@ -17,7 +17,7 @@ import setAuthToken from "./utils/setAuthToken";
 import ProfileEdit from "./components/profile/ProfileEdit";
 import Profiles from "./components/profile/Profiles";
 import PostForm from "./components/post/PostForm";
-import PostItem from "./components/post/PostItem";
+import Post from "./components/post/Post";
 import Posts from "./components/post/Posts";
 import Friends from "./components/profile/Friends";
 import Footer from "./components/Navigation/Footer";
@@ -50,7 +50,7 @@ const App = () => {
             <PrivateRoute path="/friends" component={Friends} />
             <PrivateRoute path="/post-form" component={PostForm} />
             <PrivateRoute path="/feed" component={Posts} />
-            <PrivateRoute path="/post" component={PostItem} />
+            <PrivateRoute exact path="/posts/:id" component={Post} />
           </Switch>
           <Footer />
         </div>
