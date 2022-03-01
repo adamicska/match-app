@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { addLike, removeLike, deletePost } from "../../actions/post";
 
 import { ThumbUpIcon, ChatAltIcon, TrashIcon } from "@heroicons/react/solid";
+import formatDate from "../../utils/formatDate";
 
 const PostItem = ({
   addLike,
@@ -14,7 +15,7 @@ const PostItem = ({
   post: { _id, text, name, title, avatar, user, likes, comments, date },
   showActions,
 }) => (
-  <div className="bg-white shadow overflow-hidden sm:rounded-lg mb-4">
+  <Fragment className="bg-white shadow overflow-hidden sm:rounded-lg mb-4">
     <div className="px-4 py-5 sm:px-6">
       {!auth.loading && user === auth.user._id && (
         <button
@@ -26,6 +27,7 @@ const PostItem = ({
         </button>
       )}
       <h3 className="text-lg leading-6 font-medium text-gray-900">{title}</h3>
+      <p className="text-xs text-gray-800">{formatDate(date)}</p>
       <Link to={`/profile/${user}`}>
         <img
           className="inline-block h-8 w-8 rounded-full"
@@ -89,12 +91,12 @@ const PostItem = ({
           </dd>
         </div>
         <div className="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-          <dt className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+          <dt className="mt-1 text-sm text-gray-900 sm:mt-0">
             <Link to={`/posts/${_id}`}>
               <ChatAltIcon className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400 mb-2" />
             </Link>
           </dt>
-          <dd>
+          <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
             <Link to={`/posts/${_id}`}>
               {comments.length > 0 && (
                 <span className="ml-2">{comments.length} comments</span>
@@ -104,7 +106,7 @@ const PostItem = ({
         </div>
       </dl>
     </div>
-  </div>
+  </Fragment>
 );
 
 PostItem.defaultProps = {

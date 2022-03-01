@@ -19,17 +19,23 @@ const Post = ({ getPost, post: { post, loading }, match }) => {
     <Spinner />
   ) : (
     <Fragment>
-      <Link to="/feed">
-        <ArrowCircleLeftIcon className="h-6 w-6 my-3" />
-      </Link>
-      <PostItem post={post} showActions={false} />
+      <div className="mx-4 py-6 px-4 lg:px-8">
+        <Link to="/feed">
+          <ArrowCircleLeftIcon className="h-6 w-6 my-3" />
+        </Link>
+        <PostItem post={post} showActions={false} className="mx-4" />
 
-      <div className="comments">
-        {post.comments.map((comment) => (
-          <CommentItem key={comment._id} comment={comment} postId={post._id} />
-        ))}
+        <div className="comments">
+          {post.comments.map((comment) => (
+            <CommentItem
+              key={comment._id}
+              comment={comment}
+              postId={post._id}
+            />
+          ))}
+        </div>
+        <CommentForm postId={post._id} />
       </div>
-      <CommentForm postId={post._id} />
     </Fragment>
   );
 };
