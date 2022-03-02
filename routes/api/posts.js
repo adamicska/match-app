@@ -107,8 +107,6 @@ router.put("/like/:id", auth, checkObjectId("id"), async (req, res) => {
 
     const user = req.user.id;
 
-    console.log(post.likes);
-
     // Check if the post has already been liked
     // Convert this to unlike | show liked in UI
     if (post.likes.some((like) => like.user.toString() === user)) {

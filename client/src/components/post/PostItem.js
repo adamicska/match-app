@@ -26,15 +26,19 @@ const PostItem = ({
           <TrashIcon />
         </button>
       )}
-      <h3 className="text-lg leading-6 font-medium text-gray-900">{title}</h3>
-      <p className="text-xs text-gray-800 my-2">{formatDate(date)}</p>
-      <Link to={`/profile/${user}`}>
-        <img
-          className="inline-block h-8 w-8 rounded-full"
-          src={avatar}
-          alt={name}
-        />
-      </Link>
+      <div className="flex flex-row">
+        <Link to={`/profile/${user}`}>
+          <img
+            className="inline-block h-8 w-8 rounded-full"
+            src={avatar}
+            alt={name}
+          />
+        </Link>
+        <p className="text-xs text-gray-600 mt-1 ml-2">{formatDate(date)}</p>
+      </div>
+      <h3 className="text-lg leading-6 font-medium text-gray-900 mt-2">
+        {title}
+      </h3>
     </div>
     <div className="aspect-w-4 aspect-h-2 bg-gray-100 overflow-hidden max-h-screen">
       {/* <img src={post.image} alt={post.title} className="object-center object-cover" /> */}

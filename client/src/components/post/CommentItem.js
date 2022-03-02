@@ -12,7 +12,7 @@ const CommentItem = ({
   deleteComment,
 }) => (
   <div className="bg-white shadow overflow-hidden sm:rounded-lg mb-4">
-    <div className="columns-2 px-4 pt-3">
+    <div className="px-4 pt-3 flex flex-row">
       <Link to={`/profile/${user}`}>
         <img
           className="inline-block h-6 w-6 rounded-full mb-1"
@@ -20,7 +20,7 @@ const CommentItem = ({
           alt={name}
         />
       </Link>
-      <p className="text-xs">{formatDate(date)}</p>
+      <p className="text-xs text-gray-800 mt-1 ml-2">{formatDate(date)}</p>
     </div>
     <div className="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
       <p className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{text}</p>
