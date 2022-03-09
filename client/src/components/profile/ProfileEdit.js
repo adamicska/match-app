@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useEffect } from "react";
-import { Redirect } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { createProfile, getCurrentProfile } from "../../actions/profile";
@@ -38,6 +38,7 @@ const ProfileEdit = ({
   const onSubmit = (e) => {
     e.preventDefault();
     createProfile(formData, history, profile ? true : false);
+    <Navigate to="/profile" />;
   };
 
   return (

@@ -2,7 +2,7 @@ import { Fragment, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { getProfileById } from "../../actions/profile";
+import { getCurrentProfile } from "../../actions/profile";
 // import Spinner from "../spinner/Spinner";
 import {
   BriefcaseIcon,
@@ -11,11 +11,19 @@ import {
   UserAddIcon,
 } from "@heroicons/react/solid";
 
-const Profile = ({ getProfileById, profile: { profile }, auth }) => {
-  const { id } = useParams();
-  useEffect(() => {
-    getProfileById(id);
-  }, [getProfileById, id]);
+const Dashboard = ({
+  getCurrentProfile,
+  profile: { profile },
+  auth: { user },
+}) => {
+  // const { id } = useParams();
+  useEffect(
+    () => {
+      getCurrentProfile();
+    },
+    [getCurrentProfile],
+    console.log(user)
+  );
 
   return (
     <div>
@@ -37,11 +45,11 @@ const Profile = ({ getProfileById, profile: { profile }, auth }) => {
                     alt=""
                   />
                   <h2 className="md:ml-3 text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:truncate">
-                    {/* {name} */}
+                    {user.name}
                   </h2>
                 </div>
 
-                {profile.bio !== null ? (
+                {profile !== null ? (
                   <Fragment>
                     <div className="mt-1 flex flex-col sm:flex-row sm:flex-wrap sm:mt-0 sm:space-x-6">
                       <div className="mt-3 flex items-center text-sm text-gray-500">
@@ -59,36 +67,36 @@ const Profile = ({ getProfileById, profile: { profile }, auth }) => {
                         {profile.location}
                       </div>
                     </div>
-                    <p className="mt-4">{profile.bio}</p>
-                    {profile._id !== auth.id ? (
-                      <Link to="/profile-edit">
-                        <button
-                          type="button"
-                          className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500"
-                        >
-                          <PencilIcon
-                            className="-ml-1 mr-2 h-5 w-5 text-gray-500"
-                            aria-hidden="true"
-                          />
-                          Edit
-                        </button>
-                      </Link>
-                    ) : (
+                    <p className="mt-4 mb-2">{profile.bio}</p>
+                    {/* {_id !== auth.id ? ( */}
+                    <Link to="/profile-edit">
                       <button
                         type="button"
-                        className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500"
+                        className="inline-flex items-center px-4 py-2 mr-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500"
                       >
-                        <UserAddIcon
+                        <PencilIcon
                           className="-ml-1 mr-2 h-5 w-5 text-gray-500"
                           aria-hidden="true"
                         />
-                        Follow
+                        Edit
                       </button>
-                    )}
+                    </Link>
+                    {/* ) : ( */}
+                    <button
+                      type="button"
+                      className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500"
+                    >
+                      <UserAddIcon
+                        className="-ml-1 mr-2 h-5 w-5 text-gray-500"
+                        aria-hidden="true"
+                      />
+                      Follow
+                    </button>
+                    {/* )} */}
                   </Fragment>
                 ) : (
                   <Fragment>
-                    <p className="mt-3 text-black dark:text-white text-base sm:text-xl lg:text-base xl:text-xl truncate">
+                    <p className="mt-3 text-black dark:text-white text-base sm:text-sm lg:text-base xl:text-sm truncate">
                       Please add info to your profile
                     </p>
                     <Link to="/profile-edit">
@@ -144,8 +152,8 @@ const Profile = ({ getProfileById, profile: { profile }, auth }) => {
   );
 };
 
-Profile.propTypes = {
-  getProfileById: PropTypes.func.isRequired,
+Dashboard.propTypes = {
+  getCurrentProfile: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired,
 };
@@ -155,4 +163,4 @@ const mapStateToProps = (state) => ({
   profile: state.profile,
 });
 
-export default connect(mapStateToProps, { getProfileById })(Profile);
+export default connect(mapStateToProps, { getCurrentProfile })(Dashboard);

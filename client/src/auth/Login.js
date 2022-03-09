@@ -5,7 +5,7 @@ import { login } from "../actions/auth";
 import PropTypes from "prop-types";
 import { LockClosedIcon } from "@heroicons/react/solid";
 import { BadgeCheckIcon } from "@heroicons/react/outline";
-import { Link, Redirect } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 
 const Login = ({ login, isAuthenticated }) => {
   const [formData, setFormData] = useState({
@@ -24,7 +24,7 @@ const Login = ({ login, isAuthenticated }) => {
   };
 
   if (isAuthenticated) {
-    return <Redirect to="/profile" />;
+    return <Navigate to="/feed" />;
   }
 
   // const onSubmit = async (e) => {

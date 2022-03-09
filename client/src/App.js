@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import "./App.css";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import PrivateRoute from "./routing/PrivateRoute";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+// import PrivateRoute from "./routing/PrivateRoute";
 
 import Navigation from "./components/Navigation/Navigation";
 import Home from "./pages/index";
@@ -21,6 +21,8 @@ import Post from "./components/post/Post";
 import Posts from "./components/post/Posts";
 import Friends from "./components/profile/Friends";
 import Footer from "./components/Navigation/Footer";
+import Dashboard from "./components/profile/Dashboard";
+import PrivateRoute from "./components/routing/PrivateRoute";
 
 const App = () => {
   useEffect(() => {
@@ -40,18 +42,22 @@ const App = () => {
       <Router>
         <div className="App">
           <Navigation />
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/register" component={Register} />
-            <PrivateRoute path="/profile" component={Profile} />
-            <PrivateRoute exact path="/profile-edit" component={ProfileEdit} />
-            <PrivateRoute path="/players" component={Profiles} />
-            <PrivateRoute path="/friends" component={Friends} />
-            <PrivateRoute path="/post-form" component={PostForm} />
-            <PrivateRoute path="/feed" component={Posts} />
-            <PrivateRoute exact path="/posts/:id" component={Post} />
-          </Switch>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/profile/:id" element={<Profile />} />
+            <Route
+              path="/dashboard"
+              element={<PrivateRoute component={Dashboard} />}
+            />
+            <Route path="/profile-edit" element={<ProfileEdit />} />
+            <Route path="/players" element={<Profiles />} />
+            <Route path="/friends" element={<Friends />} />
+            <Route path="/post-form" element={<PostForm />} />
+            <Route path="/feed" element={<Posts />} />
+            <Route path="/posts/:id" element={<Post />} />
+          </Routes>
           <Footer />
         </div>
       </Router>
