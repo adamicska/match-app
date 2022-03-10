@@ -94,12 +94,15 @@ router.get("/", async (req, res) => {
 // @desc     Get profile by user ID
 // @access   Public
 router.get("/user/:user_id", async ({ params: { user_id } }, res) => {
+  console.log(user_id);
+
+  // Fix profile find. user_id is sent properly from the front-end
   try {
     const profile = await Profile.findOne({
       user: user_id,
     }).populate("user", ["name", "avatar"]);
 
-    console.log(req.params);
+    console.log(profile);
 
     if (!profile) return res.status(400).json({ msg: "Profile not found" });
 
