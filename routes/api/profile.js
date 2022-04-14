@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const auth = require("../../middleware/auth");
+const checkObjectId = require("../../middleware/checkObjectId");
 const { check, validationResult } = require("express-validator");
 const Profile = require("../../models/Profile");
 const User = require("../../models/User");
@@ -42,17 +43,16 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const { location, level, status, clubs, ...rest } = req.body;
+    const { country, location, level, status, club, ...rest } = req.body;
 
     // Build profile object
     const profileFields = {
       user: req.user.id,
+      country: country,
       location: location,
       level: level,
       status: status,
-      clubs: Array.isArray(clubs)
-        ? clubs
-        : clubs.split(",").map((skill) => " " + skill.trim()),
+      club: club,
       ...rest,
     };
 
@@ -93,25 +93,29 @@ router.get("/", async (req, res) => {
 // @route    GET api/profile/user/:user_id
 // @desc     Get profile by user ID
 // @access   Public
-router.get("/user/:user_id", async ({ params: { user_id } }, res) => {
-  console.log(user_id);
+router.get(
+  "/user/:user_id",
+  checkObjectId("user_id"),
+  async ({ params: { user_id } }, res) => {
+    console.log(user_id);
 
-  // Fix profile find. user_id is sent properly from the front-end
-  try {
-    const profile = await Profile.findOne({
-      user: user_id,
-    }).populate("user", ["name", "avatar"]);
+    // Fix profile find. user_id is sent properly from the front-end
+    try {
+      const profile = await Profile.findOne({
+        _id: user_id,
+      }).populate("user", ["name", "avatar"]);
 
-    console.log(profile);
+      console.log(profile);
 
-    if (!profile) return res.status(400).json({ msg: "Profile not found" });
+      if (!profile) return res.status(400).json({ msg: "Profile not found" });
 
-    return res.json(profile);
-  } catch (err) {
-    console.error(err.message);
-    return res.status(500).json({ msg: "Server error" });
+      return res.json(profile);
+    } catch (err) {
+      console.error(err.message);
+      return res.status(500).json({ msg: "Server error" });
+    }
   }
-});
+);
 
 // @route    DELETE api/profile
 // @desc     Delete profile, user & posts

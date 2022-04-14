@@ -23,6 +23,7 @@ import Friends from "./components/profile/Friends";
 import Footer from "./components/Navigation/Footer";
 import Dashboard from "./components/profile/Dashboard";
 import PrivateRoute from "./components/routing/PrivateRoute";
+import Chat from "./components/chat/Chat";
 
 const App = () => {
   useEffect(() => {
@@ -57,6 +58,7 @@ const App = () => {
             <Route path="/post-form" element={<PostForm />} />
             <Route path="/feed" element={<Posts />} />
             <Route path="/posts/:id" element={<Post />} />
+            <Route path="/chat" element={<Chat />} />
           </Routes>
           <Footer />
         </div>

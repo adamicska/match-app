@@ -84,7 +84,7 @@ export const createProfile =
       );
 
       if (!edit) {
-        history.push("/profile");
+        history.push("/dashboard");
       }
     } catch (err) {
       const errors = err.response.data.errors;

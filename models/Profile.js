@@ -5,6 +5,10 @@ const ProfileSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "user",
   },
+  country: {
+    type: String,
+    required: true,
+  },
   location: {
     type: String,
     required: true,
@@ -20,8 +24,8 @@ const ProfileSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  clubs: {
-    type: [String],
+  club: {
+    type: String,
   },
   bio: {
     type: String,

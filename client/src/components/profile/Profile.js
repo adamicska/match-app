@@ -5,13 +5,15 @@ import { connect } from "react-redux";
 import { getProfileById } from "../../actions/profile";
 import Spinner from "../spinner/Spinner";
 import {
-  BriefcaseIcon,
+  StarIcon,
+  GlobeIcon,
   LocationMarkerIcon,
+  OfficeBuildingIcon,
   PencilIcon,
   UserAddIcon,
 } from "@heroicons/react/solid";
 
-const Profile = ({ getProfileById, profile: { profile }, auth }) => {
+const Profile = ({ getProfileById, profile: { profile }, auth: { user } }) => {
   const { id } = useParams();
   useEffect(() => {
     getProfileById(id);
@@ -35,12 +37,12 @@ const Profile = ({ getProfileById, profile: { profile }, auth }) => {
                   <div className="md:flex">
                     <img
                       className="h-10 w-10 rounded-full"
-                      // src={avatar}
+                      // src={profile.avatar}
                       src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                      alt=""
+                      alt={`profile pic of ${profile.user.name}`}
                     />
                     <h2 className="md:ml-3 text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:truncate">
-                      {/* {name} */}
+                      {profile.user.name}
                     </h2>
                   </div>
 
@@ -48,11 +50,18 @@ const Profile = ({ getProfileById, profile: { profile }, auth }) => {
                     <Fragment>
                       <div className="mt-1 flex flex-col sm:flex-row sm:flex-wrap sm:mt-0 sm:space-x-6">
                         <div className="mt-3 flex items-center text-sm text-gray-500">
-                          <BriefcaseIcon
+                          <StarIcon
                             className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400"
                             aria-hidden="true"
                           />
                           {profile.level}
+                        </div>
+                        <div className="mt-3 flex items-center text-sm text-gray-500">
+                          <GlobeIcon
+                            className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400"
+                            aria-hidden="true"
+                          />
+                          {profile.country}
                         </div>
                         <div className="mt-3 flex items-center text-sm text-gray-500">
                           <LocationMarkerIcon
@@ -61,22 +70,16 @@ const Profile = ({ getProfileById, profile: { profile }, auth }) => {
                           />
                           {profile.location}
                         </div>
+                        <div className="mt-3 flex items-center text-sm text-gray-500">
+                          <OfficeBuildingIcon
+                            className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400"
+                            aria-hidden="true"
+                          />
+                          {profile.club}
+                        </div>
                       </div>
                       <p className="mt-4">{profile.bio}</p>
-                      {profile._id !== auth.id ? (
-                        <Link to="/profile-edit">
-                          <button
-                            type="button"
-                            className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500"
-                          >
-                            <PencilIcon
-                              className="-ml-1 mr-2 h-5 w-5 text-gray-500"
-                              aria-hidden="true"
-                            />
-                            Edit
-                          </button>
-                        </Link>
-                      ) : (
+                      {profile.user._id !== user._id ? (
                         <button
                           type="button"
                           className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500"
@@ -87,7 +90,7 @@ const Profile = ({ getProfileById, profile: { profile }, auth }) => {
                           />
                           Follow
                         </button>
-                      )}
+                      ) : null}
                     </Fragment>
                   ) : (
                     <Fragment>
